@@ -9,4 +9,11 @@ def pregunta_04():
         [("01", 3), ("02", 4), ("03", 2), ...]
     """
 
-    raise NotImplementedError
+
+    import gzip
+    counts = {}
+    with gzip.open('data/data.csv.gz', 'rt') as f:
+        for row in f:
+            month = row.split('\t')[2].split('-')[1]
+            counts[month] = counts.get(month, 0) + 1
+    return sorted(counts.items())

@@ -11,4 +11,11 @@ def pregunta_10():
         [("E", 3, 5), ("A", 3, 4), ("B", 4, 4), ...]
     """
 
-    raise NotImplementedError
+
+    import gzip
+    res = []
+    with gzip.open('data/data.csv.gz', 'rt') as f:
+        for row in f:
+            parts = row.strip().split('\t')
+            res.append((parts[0], len(parts[3].split(',')), len(parts[4].split(','))))
+    return res

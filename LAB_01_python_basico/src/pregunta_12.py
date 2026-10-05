@@ -9,4 +9,13 @@ def pregunta_12():
         {"A": 177, "B": 187, "C": 114, ...}
     """
 
-    raise NotImplementedError
+
+    import gzip
+    res = {}
+    with gzip.open('data/data.csv.gz', 'rt') as f:
+        for row in f:
+            parts = row.strip().split('\t')
+            letter = parts[0]
+            val = sum(int(p.split(':')[1]) for p in parts[4].split(','))
+            res[letter] = res.get(letter, 0) + val
+    return dict(sorted(res.items()))

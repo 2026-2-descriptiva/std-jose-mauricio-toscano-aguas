@@ -11,4 +11,12 @@ def pregunta_07():
         [(0, ["C"]), (1, ["E", "B", "E"]), (2, ["A", "E"]), ...]
     """
 
-    raise NotImplementedError
+
+    import gzip
+    res = {}
+    with gzip.open('data/data.csv.gz', 'rt') as f:
+        for row in f:
+            parts = row.split('\t')
+            letter, val = parts[0], int(parts[1])
+            res.setdefault(val, []).append(letter)
+    return sorted(res.items())

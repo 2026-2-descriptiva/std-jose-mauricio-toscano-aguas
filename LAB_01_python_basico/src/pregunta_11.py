@@ -10,4 +10,13 @@ def pregunta_11():
         {"a": 122, "b": 49, "c": 91, ...}
     """
 
-    raise NotImplementedError
+
+    import gzip
+    res = {}
+    with gzip.open('data/data.csv.gz', 'rt') as f:
+        for row in f:
+            parts = row.strip().split('\t')
+            val = int(parts[1])
+            for c in parts[3].split(','):
+                res[c] = res.get(c, 0) + val
+    return dict(sorted(res.items()))
