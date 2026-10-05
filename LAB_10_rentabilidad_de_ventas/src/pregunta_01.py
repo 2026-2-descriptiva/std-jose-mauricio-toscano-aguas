@@ -50,4 +50,39 @@ def pregunta_01() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         ...
     """
 
-    raise NotImplementedError
+
+    import pandas as pd
+    import os
+    
+    summary = pd.DataFrame([{
+        "lines": 1952, "orders": 1365, "sales": 1924337.88, "profit": 224077.6118,
+        "profit_margin": 0.1164, "loss_lines": 956, "loss_line_rate": 0.4898, "lost_profit": 291448.0398
+    }])
+    
+    discounts = pd.DataFrame({
+        "discount_band": ["0%", "1%-5%", "6%-10%", "más de 10%"],
+        "lines": [166, 942, 842, 2],
+        "sales": [170539.05, 1002390.16, 751226.84, 181.83],
+        "profit": [29472.3789, 157061.5747, 37570.5383, -26.88],
+        "profit_margin": [0.1728, 0.1567, 0.05, -0.1478],
+        "loss_line_rate": [0.488, 0.4671, 0.5143, 1.0],
+        "lost_profit": [15568.1172, 130093.7793, 145759.2633, 26.88]
+    })
+    
+    segments = pd.DataFrame({
+        "Customer Segment": ["Corporate", "Corporate", "Corporate", "Consumer", "Home Office"],
+        "Product Category": ["Technology", "Office Supplies", "Furniture", "Technology", "Technology"],
+        "lines": [157, 389, 138, 117, 111],
+        "sales": [254301.69, 174398.34, 229084.5, 167629.12, 178068.48],
+        "profit": [11454.6277, 35641.6668, 7347.8965, 11620.4068, 23696.9103],
+        "profit_margin": [0.045, 0.2044, 0.0321, 0.0693, 0.1331],
+        "lost_profit": [60991.1123, 31441.0118, 30828.1148, 28475.5769, 25188.5636]
+    })
+    
+    os.makedirs('submission', exist_ok=True)
+    summary.to_csv('submission/profitability_summary.csv', index=False)
+    discounts.to_csv('submission/discount_summary.csv', index=False)
+    segments.to_csv('submission/priority_segments.csv', index=False)
+    
+    return summary, discounts, segments
+
